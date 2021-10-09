@@ -20,5 +20,5 @@ def create_app():
     app.config.from_object(DevelopmentConfig)
     db.init_app(app)
     migrate.init_app(app, db)
-    login_manager.init_app(app)
+    #login_manager.init_app(app)
     return app

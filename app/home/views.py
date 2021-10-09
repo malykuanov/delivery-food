@@ -1,9 +1,8 @@
-from flask import Blueprint
-
+from flask import Blueprint, render_template, url_for
 
 home = Blueprint('home', __name__, template_folder="templates", static_folder="static")
 
 
 @home.route("/")
 def index():
-    return "<h1> Hello, world!</h1>"
+    return render_template('home/home.html', title='Delivery Food')
