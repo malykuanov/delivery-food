@@ -17,9 +17,9 @@ login_manager.login_message = 'Необходима авторизация'
 login_manager.login_message_category = 'success'
 
 
-def create_app():
+def create_app(config_class=DevelopmentConfig):
     app = Flask(__name__)
-    app.config.from_object(DevelopmentConfig)
+    app.config.from_object(config_class)
     db.init_app(app)
     migrate.init_app(app, db)
     bootstrap.init_app(app)

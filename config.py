@@ -9,7 +9,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=100)
@@ -20,6 +20,7 @@ class ProductionConfig(Config):
 
 
 class DevelopmentConfig(Config):
+    ENV = "development"
     DEVELOPMENT = True
     DEBUG = True
 
