@@ -1,21 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<link rel="stylesheet" type="text/css" href="{{ url_for('.static', filename='css/styles.css')}}">
-<meta charset="UTF-8">
-  {% block title %}
-    {% if title %}
-          <title> {{title}} </title>
-      {% else %}
-          <title>Delivery food</title>
-      {% endif %}
-  {% endblock title %}
-</head>
-<body>
-{%- block content %}
-    <div>
-        <h1>Pro Flask</h1>
+{% extends "bootstrap/base.html" %}
+{% block title %}This is an example page{% endblock %}
+{% block styles %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous">
+{% endblock styles %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{url_for('.index')}}">Delivery Food</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+    <span class="navbar-text">
+            8 - (916) - 191 - 51 - 85
+      </span>
+      <div>
+        Contact us
+        <a>
+          <img  src="{{url_for('.static', filename='images/icon-telegram_circle.svg')}}"  alt=""/>
+        </a>
+        <a>
+          <img  src="{{url_for('.static', filename='images/icon-whatsup_circle.svg')}}"  alt=""/>
+        </a>
+      </div>
+      <div class = "header_basket">
+        <button type="button" class="btn btn-primary">login</button>
+        <button type="button" class="btn btn-success">Cart</button>
+        <span>Сумма</span>
+        <span>кол-во</span>
+      </div>
     </div>
-{% endblock content -%}
-</body>
-</html>
+
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+  <h1>Hello, Bootstrap</h1>
+{% endblock %}
