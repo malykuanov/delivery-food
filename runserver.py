@@ -1,5 +1,6 @@
 from app import create_app, db
 from app.home.views import home
+from app.products.models import Product, ProductCategory
 
 from config import DevelopmentConfig
 
