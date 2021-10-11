@@ -19,6 +19,7 @@ class ProductCategory(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(100), unique=True, nullable=False)
+    photo_url = db.Column(db.String(100))
 
     product = db.relationship('Product', backref='product_category', uselist=False)
 
