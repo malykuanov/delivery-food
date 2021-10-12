@@ -1,5 +1,8 @@
 from flask import Blueprint, render_template, url_for
 
+from app.products.models import ProductCategory
+
+
 home = Blueprint(
     'home',
     __name__,
@@ -11,4 +14,5 @@ home = Blueprint(
 
 @home.route("/")
 def index():
-    return render_template('home/home.html')
+    category = ProductCategory.query.order_by(ProductCategory.id).all()
+    return render_template('home/home.html', category=category)
