@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, current_app, request
+from flask import Blueprint, current_app, request, flash
 from flask_admin import Admin
 from flask_admin.contrib import sqla
 from flask_wtf.file import FileField, FileAllowed, FileSize, FileRequired
@@ -27,9 +27,15 @@ class ProductCategoryAdminModel(sqla.ModelView):
             storage_file = _form.category_photo.data
             filename = secure_filename(storage_file.filename)
             if storage_file and filename.rsplit('.', 1)[1] in ['png', 'jpg', 'jpeg']:
-                category = ProductCategory.query.get(request.args.get('id', type=int))
+                if request.args.get('id', type=int):
+                    category = ProductCategory.query.get(request.args.get('id', type=int))
+                else:
+                    category = ProductCategory(category=list(_form)[0].data)
+                    db.session.add(category)
+                    db.session.flush()
                 filename = category.category + '_category_photo.' + filename.rsplit('.', 1)[1]
                 path = current_app.root_path + '/static/images/product_category/' + filename
+                os.remove(path) if os.path.exists(path) else None
                 storage_file.save(os.path.join(path))
                 category.photo_url = filename
                 db.session.commit()
@@ -44,6 +50,7 @@ class ProductCategoryAdminModel(sqla.ModelView):
         )
 
     def create_form(self, obj=None):
+        flash(message='"Already exists" on "Save" means the record was successfully added')
         return self.set_category_image(
             super(ProductCategoryAdminModel, self).create_form(obj)
         )
