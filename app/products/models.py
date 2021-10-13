@@ -10,6 +10,7 @@ class Product(db.Model, UserMixin):
     composition = db.Column(db.String(500))
     category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
     price = db.Column(db.Numeric(5, 2))
+    photo_url = db.Column(db.String(100))
 
     def __str__(self):
         return f"id={self.id}, name={self.name}, price={self.price}"
