@@ -61,10 +61,14 @@
     <div class="row">
       <div class="col-3">
         <h5> Product_Category</h5>
-        {% for u in category %}
-          <a href="{{u.category}}">
-              <p> {{ u.category }}</p>
-          </a>
+        {% for i in range(0, category|length, 3) %}
+          <div class="row" style="margin-top: 25px;">
+              {% for cat in category[i:i+3] %}
+              <a href="{{cat.category}}" >
+                <p style="margin-bottom: 5px;"> {{ cat.category }}</p>
+              </a>
+              {% endfor %}
+          </div>
         {% endfor %}
       </div>
       <div class="col-9">
