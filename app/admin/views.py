@@ -12,7 +12,7 @@ from app.products.models import ProductCategory
 admin = Blueprint('admin_bp', __name__, template_folder='templates', static_folder='static')
 
 
-class ProductCategoryAdminModel(sqla.ModelView):
+class CategoryView(sqla.ModelView):
     form_excluded_columns = ('photo_url', 'product')
     form_extra_fields = {
         'category_photo': FileField(validators=[
@@ -46,13 +46,13 @@ class ProductCategoryAdminModel(sqla.ModelView):
 
     def edit_form(self, obj=None):
         return self.set_category_image(
-            super(ProductCategoryAdminModel, self).edit_form(obj)
+            super(CategoryView, self).edit_form(obj)
         )
 
     def create_form(self, obj=None):
         flash(message='"Already exists" on "Save" means the record was successfully added')
         return self.set_category_image(
-            super(ProductCategoryAdminModel, self).create_form(obj)
+            super(CategoryView, self).create_form(obj)
         )
 
 
