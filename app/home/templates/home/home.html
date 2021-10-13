@@ -18,7 +18,7 @@
 {% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-      <a class="navbar-brand" href="{{url_for('.index')}}">Delivery Food</a>
+      <a class="navbar-brand" href="{{url_for('home.index')}}">Delivery Food</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -56,15 +56,19 @@
 {% block body %}
 {{super()}}
 <section id="body">
+
     <div class="container" style="margin-top: 20px">
     <div class="row">
       <div class="col-3">
         <h5> Product_Category</h5>
         {% for u in category %}
-            <p> {{ u.category }}</p>
+          <a href="{{u.category}}">
+              <p> {{ u.category }}</p>
+          </a>
         {% endfor %}
       </div>
       <div class="col-9">
+          {% block inner_content %}
           <section id="carousel">
               <div class="row justify-content-center">
                   <div class="col">
@@ -117,7 +121,7 @@
               <div class="row">
                 {% for u in category %}
                   <div class="col-3">
-                    <a href="http://example.com">
+                    <a href="{{url_for('home.index')}}">
                       <div class="card bg-dark text-white">
                         <img src="{{url_for('static', filename='images/product_category/' + u.photo_url)}}" class="card-img" alt="...">
                         <div class="card-img-overlay" style="position: absolute;">
@@ -203,6 +207,7 @@
                   </div>
                 </div>
           </section>
+          {% endblock inner_content %}
           <section id="footer-nav">
               <div class="container">
               <footer class="row row-cols-5 py-5 my-5 border-top">
@@ -253,7 +258,9 @@
             </div>
           </section>
       </div>
+
     </div>
+
     <div class="row">
           <div class="col">
               <div class="container">
