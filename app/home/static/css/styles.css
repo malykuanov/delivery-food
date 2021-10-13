@@ -1,3 +1,7 @@
+body {
+    background: #c9c9ce;
+}
+
 .btn{
     border: 2px solid red;
 }
@@ -11,6 +15,7 @@
     background: grey;
     text-align: center;
 }
-.card-text{
 
+.carousel-item img{
+    border-radius: 20px;
 }
