@@ -9,7 +9,7 @@ class Product(db.Model, UserMixin):
     description = db.Column(db.String(500))
     composition = db.Column(db.String(500))
     category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
-    price = db.Column(db.Numeric(5, 2))
+    price = db.Column(db.Numeric(5, 0))
     photo_url = db.Column(db.String(100))
 
     def __str__(self):
