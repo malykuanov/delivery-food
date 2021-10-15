@@ -1,9 +1,7 @@
-from datetime import datetime
 from app import db
-from flask_login import UserMixin
 
 
-class Product(db.Model, UserMixin):
+class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150), unique=True, nullable=False)
     description = db.Column(db.String(500))
