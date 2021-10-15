@@ -6,9 +6,10 @@ class Product(db.Model):
     name = db.Column(db.String(150), unique=True, nullable=False)
     description = db.Column(db.String(500))
     composition = db.Column(db.String(500))
-    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
     price = db.Column(db.Numeric(5, 0))
     photo_url = db.Column(db.String(100))
+
+    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
 
     def __str__(self):
         return f"id={self.id}, name={self.name}, price={self.price}"
@@ -21,7 +22,12 @@ class ProductCategory(db.Model):
     category = db.Column(db.String(100), unique=True, nullable=False)
     photo_url = db.Column(db.String(100))
 
-    product = db.relationship('Product', backref='product_category', uselist=False)
+    products = db.relationship('Product',
+                               foreign_keys='Product.category_id',
+                               backref='product_category',
+                               lazy='dynamic',
+                               cascade='all, delete-orphan'
+                               )
 
     def __str__(self):
         return f"{self.category}"
