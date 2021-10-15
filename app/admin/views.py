@@ -1,13 +1,10 @@
 import os
 
-from flask import Blueprint, current_app, request, flash
+from flask import Blueprint, current_app
 from flask_admin import Admin
 from flask_admin.contrib import sqla
 from flask_wtf.file import FileField, FileAllowed, FileSize, FileRequired
 from werkzeug.utils import secure_filename
-
-from app import db
-from app.products.models import ProductCategory
 
 admin = Blueprint('admin_bp', __name__, template_folder='templates', static_folder='static')
 
@@ -65,6 +62,7 @@ class ProductView(sqla.ModelView):
     def _on_model_change(self, form, model, is_created):
         model.photo_url = self.set_product_image(form)
         return super(ProductView, self).on_model_change(form, model, is_created)
+
 
 def create_admin(app):
     admin = Admin(app, name='Delivery_food_AP', template_mode='bootstrap3')
