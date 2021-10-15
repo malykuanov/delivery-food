@@ -1,7 +1,9 @@
 body {
     background: #c9c9ce;
 }
-
+a {
+    text-decoration: none;
+}
 .btn{
     border: 2px solid red;
 }

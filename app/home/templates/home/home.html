@@ -122,13 +122,13 @@
           <section id="product_category">
               <h5> Product_Category</h5>
               <div class="row">
-                {% for u in category %}
+                {% for cat in categories %}
                   <div class="col-3">
                     <a href="{{url_for('home.index')}}">
                       <div class="card bg-dark text-white">
-                        <img src="{{url_for('static', filename='images/product_category/' + u.photo_url)}}" class="card-img" alt="...">
+                        <img src="{{url_for('static', filename='images/product_category/' + cat.photo_url)}}" class="card-img" alt="...">
                         <div class="card-img-overlay" style="position: absolute;">
-                        <h5 class="card-title" style="color:black; position:absolute;bottom:0;right:0;">{{ u.category }}</h5>
+                        <h5 class="card-title" style="color:black; position:absolute;bottom:0;right:0;">{{ cat.category }}</h5>
                         </div>
                       </div>
                     </a>
