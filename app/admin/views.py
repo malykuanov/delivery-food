@@ -22,38 +22,20 @@ class CategoryView(sqla.ModelView):
         ])
     }
 
-    def set_category_image(self, _form):
-        try:
-            storage_file = _form.category_photo.data
-            filename = secure_filename(storage_file.filename)
-            if storage_file and filename.rsplit('.', 1)[1] in ['png', 'jpg', 'jpeg']:
-                if request.args.get('id', type=int):
-                    category = ProductCategory.query.get(request.args.get('id', type=int))
-                else:
-                    category = ProductCategory(category=list(_form)[0].data)
-                    db.session.add(category)
-                    db.session.flush()
-                filename = category.category + '_category_photo.' + filename.rsplit('.', 1)[1]
-                path = current_app.root_path + '/static/images/product_category/' + filename
-                os.remove(path) if os.path.exists(path) else None
-                storage_file.save(os.path.join(path))
-                category.photo_url = filename
-                db.session.commit()
-        except Exception as ex:
-            print(ex)
+    def set_category_image(self, form):
+        storage_file = form.category_photo.data
+        filename = secure_filename(storage_file.filename)
+        if storage_file and filename.rsplit('.', 1)[1] in ['png', 'jpg', 'jpeg']:
+            filename = form.category.data + '_category_photo.' + filename.rsplit('.', 1)[1]
+            path = current_app.root_path + '/static/images/product_category/' + filename
+            os.remove(path) if os.path.exists(path) else None
+            storage_file.save(path)
 
-        return _form
+        return filename
 
-    def edit_form(self, obj=None):
-        return self.set_category_image(
-            super(CategoryView, self).edit_form(obj)
-        )
-
-    def create_form(self, obj=None):
-        flash(message='"Already exists" on "Save" means the record was successfully added')
-        return self.set_category_image(
-            super(CategoryView, self).create_form(obj)
-        )
+    def _on_model_change(self, form, model, is_created):
+        model.photo_url = self.set_category_image(form)
+        return super(CategoryView, self).on_model_change(form, model, is_created)
 
 
 class ProductView(sqla.ModelView):
