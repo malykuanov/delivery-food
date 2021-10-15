@@ -1,3 +1,5 @@
+from slugify import slugify
+
 from app import db
 
 
@@ -21,6 +23,7 @@ class ProductCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String(100), unique=True, nullable=False)
     photo_url = db.Column(db.String(100))
+    slug = db.Column(db.String(100), unique=True, nullable=False)
 
     products = db.relationship('Product',
                                foreign_keys='Product.category_id',
@@ -28,6 +31,10 @@ class ProductCategory(db.Model):
                                lazy='dynamic',
                                cascade='all, delete-orphan'
                                )
+
+    def generate_slug(self):
+        if self.category:
+            self.slug = slugify(self.category)
 
     def __str__(self):
         return f"{self.category}"

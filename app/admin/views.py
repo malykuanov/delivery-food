@@ -11,7 +11,7 @@ admin = Blueprint('admin_bp', __name__, template_folder='templates', static_fold
 
 
 class CategoryView(sqla.ModelView):
-    form_excluded_columns = ('photo_url', 'products')
+    form_excluded_columns = ('photo_url', 'products', 'slug')
     form_extra_fields = {
         'category_photo': FileField(validators=[
             FileAllowed(['png', 'jpg', 'jpeg'], "Wrong format! only png, jpg"),
@@ -30,9 +30,9 @@ class CategoryView(sqla.ModelView):
             return filename
         return model.photo_url
 
-
     def _on_model_change(self, form, model, is_created):
         model.photo_url = self.set_category_image(form, model)
+        model.generate_slug()
         return super(CategoryView, self).on_model_change(form, model, is_created)
 
 
