@@ -8,6 +8,7 @@ class Product(db.Model):
     name = db.Column(db.String(150), unique=True, nullable=False)
     description = db.Column(db.String(500))
     composition = db.Column(db.String(500))
+    weight = db.Column(db.Integer)
     price = db.Column(db.Numeric(5, 0))
     photo_url = db.Column(db.String(100))
 
@@ -29,8 +30,7 @@ class ProductCategory(db.Model):
                                foreign_keys='Product.category_id',
                                backref='product_category',
                                lazy='dynamic',
-                               cascade='all, delete-orphan'
-                               )
+                               cascade='all, delete-orphan')
 
     def generate_slug(self):
         if self.category:
