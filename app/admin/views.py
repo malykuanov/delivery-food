@@ -5,6 +5,8 @@ from flask_admin import Admin
 from flask_admin.contrib import sqla
 from flask_wtf.file import FileField, FileAllowed, FileSize, FileRequired
 from werkzeug.utils import secure_filename
+from slugify import slugify
+
 
 admin = Blueprint('admin_bp', __name__, template_folder='templates', static_folder='static')
 
@@ -49,7 +51,7 @@ class ProductView(sqla.ModelView):
         storage_file = form.product_photo.data
         filename = secure_filename(storage_file.filename)
         if storage_file and filename.rsplit('.', 1)[1] in ['png', 'jpg', 'jpeg']:
-            filename = form.name.data + '_photo.' + filename.rsplit('.', 1)[1]
+            filename = slugify(form.name.data) + '_photo.' + filename.rsplit('.', 1)[1]
             path = current_app.root_path + f'/static/images/products/{str(form.product_category.data)}/'
             if not os.path.exists(path):
                 os.makedirs(path)
