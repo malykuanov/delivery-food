@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, url_for, abort
+from flask import Blueprint, render_template, abort
 
-from app.products.models import ProductCategory
+from app.products.models import ProductCategory, Product
 
 products = Blueprint(
     'products',
@@ -13,8 +13,12 @@ products = Blueprint(
 
 @products.route("/<product_category>", methods=['GET'])
 def index(product_category):
-    category = ProductCategory.query.order_by(ProductCategory.id).all()
-    category_name = [category[i].category for i in range(0, len(category))]
-    if product_category not in category_name:
+    categories = ProductCategory.query.all()
+    if product_category not in [category.slug for category in categories]:
         abort(404)
-    return render_template('products/products.html', product_category=product_category, category=category)
+    products = Product.query.all()
+    products_for_category = [product for product in products if product.product_category.slug == product_category]
+    return render_template('products/products.html',
+                           categories=categories,
+                           products=products_for_category,
+                           product_category=product_category)
