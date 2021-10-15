@@ -11,11 +11,16 @@ class Product(db.Model):
     weight = db.Column(db.Integer)
     price = db.Column(db.Numeric(5, 0))
     photo_url = db.Column(db.String(100))
+    slug = db.Column(db.String(100), unique=True, nullable=True)
 
     category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
 
     def __str__(self):
         return f"id={self.id}, name={self.name}, price={self.price}"
+
+    def generate_slug(self):
+        if self.name:
+            self.slug = slugify(self.name)
 
 
 class ProductCategory(db.Model):
