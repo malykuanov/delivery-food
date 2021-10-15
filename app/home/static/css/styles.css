@@ -3,6 +3,10 @@ body {
 }
 a {
     text-decoration: none;
+
+}
+a:hover{
+    color: crimson;
 }
 .btn{
     border: 2px solid red;
