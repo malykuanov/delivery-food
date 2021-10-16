@@ -21,6 +21,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     ENV = "development"
+    SEND_FILE_MAX_AGE_DEFAULT = 0
     DEVELOPMENT = True
     DEBUG = True
 
