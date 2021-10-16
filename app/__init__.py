@@ -12,9 +12,6 @@ migrate = Migrate()
 bootstrap = Bootstrap()
 
 login_manager = LoginManager()
-login_manager.login_view = '.login'
-login_manager.login_message = 'Необходима авторизация'
-login_manager.login_message_category = 'success'
 
 
 def create_app(config_class=DevelopmentConfig):

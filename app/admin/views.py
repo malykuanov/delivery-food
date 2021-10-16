@@ -6,6 +6,7 @@ from flask_admin.contrib import sqla
 from flask_wtf.file import FileField, FileAllowed, FileSize, FileRequired
 from werkzeug.utils import secure_filename
 from slugify import slugify
+from wtforms import SelectField
 
 admin = Blueprint('admin_bp', __name__, template_folder='templates', static_folder='static')
 
@@ -63,6 +64,28 @@ class ProductView(sqla.ModelView):
     def _on_model_change(self, form, model, is_created):
         model.photo_url = self.set_product_image(form, model)
         return super(ProductView, self).on_model_change(form, model, is_created)
+
+
+class UsersView(sqla.ModelView):
+    can_create = True
+    can_delete = False
+    form_overrides = dict(
+        role=SelectField
+    )
+    form_args = dict(
+        role=dict(
+            choices=[
+                ('admin', 'Администратор'),
+                ('courier', 'Курьер'),
+                ('user', 'Пользователь')
+            ]
+        )
+    )
+    form_widget_args = {
+        'psw': {
+            'readonly': True
+        },
+    }
 
 
 def create_admin(app):
