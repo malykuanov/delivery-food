@@ -63,7 +63,7 @@
         {% for i in range(0, categories|length, 3) %}
           <div class="row" style="margin-top: 25px;">
               {% for cat in categories[i:i+3] %}
-              <a href="{{cat.slug}}" style="hover" >
+              <a href="{{ url_for('products.category', product_category=cat.slug)}}">
                 <p style="margin-bottom: 5px;"> {{ cat.category }}</p>
               </a>
               {% endfor %}
