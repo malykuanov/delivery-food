@@ -16,40 +16,36 @@
 {% endblock styles %}
 
 {% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar-light d-flex align-items-center" style="background: #7b59ce; height: 60px;">
   <div class="container-fluid">
-      <a class="navbar-brand" href="{{url_for('home.index')}}">Delivery Food</a>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          </form>
-      </div>
-    <div class="container">
-    <div class="row">
-      <div class="col">
-        <span class="navbar-text">
-              <a href="tel:+7888111-22-33">8 (888) 111-22-33</a>
-        </span>
-      </div>
-      <div class="col">
-            Contact us
-        <a>
-          <img  src="{{url_for('.static', filename='images/icon-telegram_circle.svg')}}"  alt=""/>
-        </a>
-        <a>
-          <img  src="{{url_for('.static', filename='images/icon-whatsup_circle.svg')}}"  alt=""/>
-        </a>
-      </div>
-      <div class="col">
-          <button type="button" class="btn btn-primary">login</button>
-          <button type="button" class="btn btn-success">Cart</button>
-          <span>Сумма</span>
-          <span>кол-во</span>
-      </div>
-    </div>
-  </div>
-  </div>
+      <div class="row d-flex align-items-center">
+          <div class="col-3 d-flex justify-content-center text-center fw-bold">
+              <a class="navbar-brand" href="{{url_for('home.index')}}" style="color: white;">DELIVERY FOOD</a>
+          </div>
+          <div class="col-2">
+              <form class="d-flex">
+                  <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search">
+              </form>
+          </div>
+          <div class="col-2">
+              <a class="navbar-text fw-bold font-monospace text-white" href="tel:+7888111-22-33">8 (888) 111-22-33</a>
+          </div>
+          <div class="col-2 d-flex align-items-center ">
+              <h6 class="navbar-text text-white font-weight-bold">Contact us</h6>
+          </div>
+          <div class="col-3 d-flex align-items-center">
+              <a class="navbar-text text-white font-weight-bold" href="#">
+                  <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
+                  Войти
+              </a>
+              <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="#" style="margin-left: 25px">
+                  <img src="{{url_for('static', filename='images/icons/cart.jpeg')}}" alt="..." style="width: 40px; height: 40px">
+                  <div style="display: inline-block; color: white">Сумма <br> кол-во</div>
+              </a>
 
+          </div>
+      </div>
+  </div>
 </nav>
 {% endblock %}
 
