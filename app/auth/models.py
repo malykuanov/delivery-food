@@ -16,3 +16,12 @@ class Users(db.Model, UserMixin):
 
     def __str__(self):
         return f"email={self.email}"
+
+
+def get_user(user_id):
+    res = Users.query.get(user_id)
+    if not res:
+        print("User not found")
+        return False
+    else:
+        return res

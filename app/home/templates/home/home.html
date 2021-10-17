@@ -3,7 +3,7 @@
 {% block title %}Delivery food{% endblock %}
 
 {% block scripts %}
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% endblock %}
 
@@ -34,7 +34,7 @@
               <h6 class="navbar-text text-white font-weight-bold">Contact us</h6>
           </div>
           <div class="col-3 d-flex align-items-center">
-              <a class="navbar-text text-white font-weight-bold" href="#">
+              <a class="navbar-text text-white font-weight-bold" href="{{ url_for('auth.login')}}">
                   <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
                   Войти
               </a>
@@ -42,7 +42,6 @@
                   <img src="{{url_for('static', filename='images/icons/cart.jpeg')}}" alt="..." style="width: 40px; height: 40px">
                   <div style="display: inline-block; color: white">Сумма <br> кол-во</div>
               </a>
-
           </div>
       </div>
   </div>
