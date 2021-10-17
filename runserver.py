@@ -1,4 +1,5 @@
 from app import create_app, db
+from app.auth.views import auth
 from app.home.views import home
 from app.admin.views import admin, create_admin, CategoryView, ProductView, UsersView
 from app.products.models import Product, ProductCategory
@@ -12,6 +13,7 @@ app = create_app(DevelopmentConfig)
 app.register_blueprint(home)
 app.register_blueprint(admin)
 app.register_blueprint(products)
+app.register_blueprint(auth)
 
 admin = create_admin(app)
 admin.add_view(ProductView(Product, db.session))
