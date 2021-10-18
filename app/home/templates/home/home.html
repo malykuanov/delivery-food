@@ -34,10 +34,18 @@
               <h6 class="navbar-text text-white font-weight-bold">Contact us</h6>
           </div>
           <div class="col-3 d-flex align-items-center">
-              <a class="navbar-text text-white font-weight-bold" href="{{ url_for('auth.login')}}">
-                  <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
-                  Войти
-              </a>
+              {% if current_user.is_authenticated %}
+                  {{ current_user }}
+                  <a class="navbar-text text-white font-weight-bold" href="{{ url_for('auth.logout')}}">
+                    <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
+                    Выйти
+                  </a>
+              {%  else %}
+                  <a class="navbar-text text-white font-weight-bold" href="{{ url_for('auth.login')}}">
+                    <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
+                    Войти
+                  </a>
+              {% endif %}
               <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="#" style="margin-left: 25px">
                   <img src="{{url_for('static', filename='images/icons/cart.jpeg')}}" alt="..." style="width: 40px; height: 40px">
                   <div style="display: inline-block; color: white">Сумма <br> кол-во</div>

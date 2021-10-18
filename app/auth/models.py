@@ -15,7 +15,7 @@ class Users(db.Model, UserMixin):
     date_registration = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __str__(self):
-        return f"email={self.email}"
+        return f"{self.email}"
 
 
 def get_user(user_id):

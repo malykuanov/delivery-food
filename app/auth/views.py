@@ -1,7 +1,7 @@
 import json
 
 from flask import Blueprint, flash, redirect, url_for, g, request, render_template, session, jsonify
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash
 
 from app import login_manager, db
@@ -26,8 +26,8 @@ def load_user(user_id):
 
 @auth.route('/login', methods=["POST", "GET"])
 def login():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('home.index'))
+    if current_user.is_authenticated:
+        return redirect(url_for('home.index'))
 
     categories = ProductCategory.query.order_by(ProductCategory.id).all()
     form = LoginForm()
@@ -76,3 +76,13 @@ def register():
                 flash(message=error, category="error")
 
     return render_template("auth/register.html", categories=categories, form=form)
+
+
+@auth.route('/logout')
+def logout():
+    if 'userLogged' in session:
+        del session['userLogged']
+        session.permanent = False
+    logout_user()
+    flash("Вы вышли из аккаунта", "success")
+    return redirect(url_for('auth.login'))
