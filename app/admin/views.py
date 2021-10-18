@@ -14,6 +14,17 @@ admin = Blueprint('admin_bp', __name__, template_folder='templates', static_fold
 
 
 class HomeAdminView(AdminIndexView):
+    """Deny access to the admin panel to users without the admin role
+
+    Methods
+    -------
+    is_accessible()
+        Checking the user for logging and role
+    inaccessible_callback()
+        Redirecting the user to home in case of refusal
+        from the 'is_accessible' method
+    """
+
     def is_accessible(self):
         if not current_user.is_authenticated:
             return False
@@ -22,7 +33,20 @@ class HomeAdminView(AdminIndexView):
     def inaccessible_callback(self, name, **kwargs):
         return redirect(url_for('home.index'))
 
+
 class CategoryView(sqla.ModelView):
+    """Displaying product categories
+
+    Method
+    -------
+    set_category_image(form, model)
+        Support for uploading an image for the
+        selected category when creating or modifying
+    _on_model_change()
+        Adding an image field for a category and
+        automatically generating a slug when creating a model
+    """
+
     form_excluded_columns = ('photo_url', 'products', 'slug')
     form_extra_fields = {
         'category_photo': FileField(validators=[
@@ -37,6 +61,14 @@ class CategoryView(sqla.ModelView):
         return current_user.has_role('admin')
 
     def set_category_image(self, form, model):
+        """Adding an image for a product category
+
+        Parameters
+        ----------
+        :param form: current display form
+        :param model: current model being created or edited
+        """
+
         storage_file = form.category_photo.data
         if storage_file:
             filename = secure_filename(storage_file.filename)
@@ -54,6 +86,17 @@ class CategoryView(sqla.ModelView):
 
 
 class ProductView(sqla.ModelView):
+    """Displaying products
+
+        Method
+        -------
+        set_product_image(form, model)
+            Support for uploading an image for the
+            selected product when creating or modifying
+        _on_model_change()
+            Adding an image field for a product
+        """
+
     form_excluded_columns = ('photo_url')
     form_extra_fields = {
         'product_photo': FileField(validators=[
@@ -68,6 +111,14 @@ class ProductView(sqla.ModelView):
         return current_user.has_role('admin')
 
     def set_product_image(self, form, model):
+        """Adding an image for a product
+
+        Parameters
+        ----------
+        :param form: current display form
+        :param model: current model being created or edited
+        """
+
         storage_file = form.product_photo.data
         if storage_file:
             filename = secure_filename(storage_file.filename)
@@ -88,6 +139,8 @@ class ProductView(sqla.ModelView):
 
 
 class UsersView(sqla.ModelView):
+    """Displaying users"""
+
     can_create = True
     can_delete = False
     form_overrides = dict(
@@ -112,6 +165,7 @@ class UsersView(sqla.ModelView):
         if not current_user.is_authenticated:
             return False
         return current_user.has_role('admin')
+
 
 def create_admin(app):
     admin = Admin(app, 'FlaskApp', url='/', index_view=HomeAdminView(name='Delivery_food'),
