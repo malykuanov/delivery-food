@@ -1,16 +1,26 @@
 import os
 
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, url_for
 from flask_admin import Admin
 from flask_admin.contrib import sqla
+from flask_admin import AdminIndexView
 from flask_login import current_user
-from flask_wtf.file import FileField, FileAllowed, FileSize, FileRequired
-from werkzeug.utils import secure_filename
+from flask_wtf.file import FileField, FileAllowed, FileSize
+from werkzeug.utils import secure_filename, redirect
 from slugify import slugify
 from wtforms import SelectField
 
 admin = Blueprint('admin_bp', __name__, template_folder='templates', static_folder='static')
 
+
+class HomeAdminView(AdminIndexView):
+    def is_accessible(self):
+        if not current_user.is_authenticated:
+            return False
+        return current_user.has_role('admin')
+
+    def inaccessible_callback(self, name, **kwargs):
+        return redirect(url_for('home.index'))
 
 class CategoryView(sqla.ModelView):
     form_excluded_columns = ('photo_url', 'products', 'slug')
@@ -104,5 +114,6 @@ class UsersView(sqla.ModelView):
         return current_user.has_role('admin')
 
 def create_admin(app):
-    admin = Admin(app, name='Delivery_food_AP', template_mode='bootstrap3')
+    admin = Admin(app, 'FlaskApp', url='/', index_view=HomeAdminView(name='Delivery_food'),
+                  template_mode='bootstrap3')
     return admin
