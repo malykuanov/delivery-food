@@ -14,6 +14,9 @@ class Users(db.Model, UserMixin):
     role = db.Column(db.String(50), default='user')
     date_registration = db.Column(db.DateTime, default=datetime.utcnow)
 
+    def has_role(self, role):
+        return role == self.role
+
     def __str__(self):
         return f"{self.email}"
 

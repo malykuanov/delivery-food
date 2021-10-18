@@ -3,6 +3,7 @@ import os
 from flask import Blueprint, current_app
 from flask_admin import Admin
 from flask_admin.contrib import sqla
+from flask_login import current_user
 from flask_wtf.file import FileField, FileAllowed, FileSize, FileRequired
 from werkzeug.utils import secure_filename
 from slugify import slugify
@@ -19,6 +20,11 @@ class CategoryView(sqla.ModelView):
             FileSize(max_size=5 * (10 ** 6), message="Max size = 5 Mb")
         ])
     }
+
+    def is_accessible(self):
+        if not current_user.is_authenticated:
+            return False
+        return current_user.has_role('admin')
 
     def set_category_image(self, form, model):
         storage_file = form.category_photo.data
@@ -45,6 +51,11 @@ class ProductView(sqla.ModelView):
             FileSize(max_size=10 * (10 ** 6), message="Max size = 10 Mb"),
         ])
     }
+
+    def is_accessible(self):
+        if not current_user.is_authenticated:
+            return False
+        return current_user.has_role('admin')
 
     def set_product_image(self, form, model):
         storage_file = form.product_photo.data
@@ -87,6 +98,10 @@ class UsersView(sqla.ModelView):
         },
     }
 
+    def is_accessible(self):
+        if not current_user.is_authenticated:
+            return False
+        return current_user.has_role('admin')
 
 def create_admin(app):
     admin = Admin(app, name='Delivery_food_AP', template_mode='bootstrap3')
