@@ -5,7 +5,7 @@ from flask_login import login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import login_manager, db
-from app.auth.models import Users, get_user
+from app.auth.models import Users, get_user, Cart
 from app.auth.forms import LoginForm, RegisterForm
 from app.products.models import ProductCategory
 
@@ -66,6 +66,9 @@ def register():
                 u = Users(email=form.email.data, psw=hash_psw,
                           name=form.name.data, address=form.address.data)
                 db.session.add(u)
+                db.session.flush()
+                cart = Cart(customer_id=u.id)
+                db.session.add(cart)
                 db.session.commit()
                 flash("Success", category="success")
             except Exception as e:
