@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, abort
-from slugify import slugify
 
+from app.auth.models import get_price_and_count
 from app.products.models import ProductCategory, Product
 
 products = Blueprint(
@@ -22,7 +22,9 @@ def category(product_category):
     return render_template('products/category.html',
                            categories=categories,
                            products=products_for_category,
-                           product_category=product_category)
+                           product_category=product_category,
+                           price=get_price_and_count()['price'],
+                           count=get_price_and_count()['count'])
 
 
 @products.route("/<product_category>/<product>", methods=['GET'])
@@ -37,4 +39,6 @@ def category_product(product_category, product):
     return render_template('products/product.html',
                            categories=categories,
                            product_category=product_category,
-                           product=product)
+                           product=product,
+                           price=get_price_and_count()['price'],
+                           count=get_price_and_count()['count'])

@@ -1,11 +1,9 @@
-import json
-
 from flask import Blueprint, flash, redirect, url_for, g, request, render_template, session, jsonify
 from flask_login import login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import login_manager, db
-from app.auth.models import Users, get_user, Cart
+from app.auth.models import Users, get_user, Cart, get_price_and_count
 from app.auth.forms import LoginForm, RegisterForm
 from app.products.models import ProductCategory
 
@@ -46,7 +44,11 @@ def login():
         else:
             for error in form.errors.items():
                 flash(message=error, category="error")
-    return render_template("auth/login.html", categories=categories, form=form)
+    return render_template("auth/login.html",
+                           categories=categories,
+                           form=form,
+                           price=get_price_and_count()['price'],
+                           count=get_price_and_count()['count'])
 
 
 @auth.route('/register', methods=["POST", "GET"])
@@ -76,7 +78,11 @@ def register():
             for error in form.errors.items():
                 flash(message=error, category="error")
 
-    return render_template("auth/register.html", categories=categories, form=form)
+    return render_template("auth/register.html",
+                           categories=categories,
+                           form=form,
+                           price=get_price_and_count()['price'],
+                           count=get_price_and_count()['count'])
 
 
 @auth.route('/logout')
