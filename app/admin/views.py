@@ -143,6 +143,9 @@ class UsersView(sqla.ModelView):
 
     can_create = True
     can_delete = False
+    column_hide_backrefs = False
+    column_list = ['name', 'address', 'email',
+                   'role', 'date_registration', 'cart']
     form_overrides = dict(
         role=SelectField
     )
