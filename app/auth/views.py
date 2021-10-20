@@ -18,8 +18,6 @@ auth = Blueprint('auth',
 
 @login_manager.user_loader
 def load_user(user_id):
-    print("user logged >>", user_id)
-    print(get_user(user_id))
     g.user = get_user(user_id)
     return g.user
 
