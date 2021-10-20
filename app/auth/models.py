@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 
 from app import db
 
@@ -52,3 +52,16 @@ def get_user(user_id):
         return False
     else:
         return res
+
+
+def get_price_and_count():
+    price = 0
+    count = 0
+    if current_user.is_authenticated:
+        user = Users.query.filter_by(email=current_user.email).first()
+        for cart in user.cart.cart_products:
+            for prod in cart.products:
+                price += prod.price
+                count += 1
+        return dict(price=price, count=count)
+    return dict(price=price, count=count)
