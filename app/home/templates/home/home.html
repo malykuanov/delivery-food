@@ -40,7 +40,7 @@
                     <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
                     Выйти
                   </a>
-                  <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="#" style="margin-left: 25px">
+                  <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="{{ url_for('cartProducts.cart')}}" style="margin-left: 25px">
                     <img src="{{url_for('static', filename='images/icons/cart.jpeg')}}" alt="..." style="width: 40px; height: 40px">
                     <div style="display: inline-block; color: white">{{ price }} &#8381; <br> {{ count }} шт.</div>
                   </a>
@@ -49,7 +49,7 @@
                     <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
                     Войти
                   </a>
-                  <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="#" style="margin-left: 25px">
+                  <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="{{ url_for('auth.login')}}" style="margin-left: 25px">
                     <img src="{{url_for('static', filename='images/icons/cart.jpeg')}}" alt="..." style="width: 40px; height: 40px">
                     <div style="display: inline-block; color: white">{{ price }} &#8381; <br> {{ count }} шт.</div>
                   </a>
