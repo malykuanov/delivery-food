@@ -167,6 +167,19 @@ class UsersView(sqla.ModelView):
         return current_user.has_role('admin')
 
 
+class CartProductView(sqla.ModelView):
+    """Displaying products in cart current user"""
+
+    can_delete = False
+    column_hide_backrefs = False
+    column_list = ['cart_id', 'products']
+
+    def is_accessible(self):
+        if not current_user.is_authenticated:
+            return False
+        return current_user.has_role('admin')
+
+
 def create_admin(app):
     admin = Admin(app, 'FlaskApp', url='/', index_view=HomeAdminView(name='Delivery_food'),
                   template_mode='bootstrap3')
