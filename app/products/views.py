@@ -38,5 +38,5 @@ def category_product(product_category, product):
                            categories=ProductCategory.get_all_categories(),
                            product_category=product_category,
                            product=product,
-                           price=get_price_and_count()['price'],
-                           count=get_price_and_count()['count'])
+                           price=CartProduct.get_price_and_count()['price'],
+                           count=CartProduct.get_price_and_count()['count'])
