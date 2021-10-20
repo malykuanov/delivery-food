@@ -40,16 +40,20 @@
                     <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
                     Выйти
                   </a>
+                  <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="#" style="margin-left: 25px">
+                    <img src="{{url_for('static', filename='images/icons/cart.jpeg')}}" alt="..." style="width: 40px; height: 40px">
+                    <div style="display: inline-block; color: white">{{ price }} &#8381; <br> {{ count }} шт.</div>
+                  </a>
               {%  else %}
                   <a class="navbar-text text-white font-weight-bold" href="{{ url_for('auth.login')}}">
                     <img src="{{url_for('static', filename='images/icons/login.jpeg')}}" alt="..." style="width: 20px; height: 20px">
                     Войти
                   </a>
+                  <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="#" style="margin-left: 25px">
+                    <img src="{{url_for('static', filename='images/icons/cart.jpeg')}}" alt="..." style="width: 40px; height: 40px">
+                    <div style="display: inline-block; color: white">{{ price }} &#8381; <br> {{ count }} шт.</div>
+                  </a>
               {% endif %}
-              <a class="navbar-text text-white font-weight-bold d-flex align-items-center" href="#" style="margin-left: 25px">
-                  <img src="{{url_for('static', filename='images/icons/cart.jpeg')}}" alt="..." style="width: 40px; height: 40px">
-                  <div style="display: inline-block; color: white">Сумма <br> кол-во</div>
-              </a>
           </div>
       </div>
   </div>
