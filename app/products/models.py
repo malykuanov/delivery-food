@@ -39,6 +39,10 @@ class ProductCategory(db.Model):
                                lazy='dynamic',
                                cascade='all, delete-orphan')
 
+    @classmethod
+    def get_all_categories(cls):
+        return ProductCategory.query.all()
+
     def generate_slug(self):
         if self.category:
             self.slug = slugify(self.category)
