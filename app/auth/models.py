@@ -16,6 +16,14 @@ class Users(db.Model, UserMixin):
 
     cart = db.relationship('Cart', backref='users', uselist=False)
 
+    @classmethod
+    def get_user(cls, user_id):
+        res = Users.query.get(user_id)
+        if not res:
+            return False
+        else:
+            return res
+
     def has_role(self, role):
         return role == self.role
 
@@ -45,23 +53,16 @@ class CartProduct(db.Model):
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
     products = db.relationship("Product", backref="cart_product", secondary=assoc_cart_products)
 
-
-def get_user(user_id):
-    res = Users.query.get(user_id)
-    if not res:
-        return False
-    else:
-        return res
-
-
-def get_price_and_count():
-    price = 0
-    count = 0
-    if current_user.is_authenticated:
-        user = Users.query.filter_by(email=current_user.email).first()
-        for cart in user.cart.cart_products:
-            for prod in cart.products:
-                price += prod.price
-                count += 1
+    @classmethod
+    def get_price_and_count(cls):
+        price = 0
+        count = 0
+        if current_user.is_authenticated:
+            user = Users.query.filter_by(email=current_user.email).first()
+            for cart in user.cart.cart_products:
+                for prod in cart.products:
+                    price += prod.price
+                    count += 1
+            return dict(price=price, count=count)
         return dict(price=price, count=count)
-    return dict(price=price, count=count)
+
