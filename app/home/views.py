@@ -1,8 +1,6 @@
 from flask import Blueprint, render_template
-from flask_login import current_user
-from slugify import slugify
 
-from app.auth.models import Users, get_price_and_count
+from app.auth.models import get_price_and_count
 from app.products.models import ProductCategory
 
 
