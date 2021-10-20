@@ -5,7 +5,7 @@ from app.admin.views import admin, create_admin, CategoryView, ProductView, User
 from app.products.models import Product, ProductCategory
 from app.auth.models import Users, Cart, CartProduct
 from app.products.views import products
-from app.users.views import cart
+from app.users.views import cartProduct
 
 from config import DevelopmentConfig
 
@@ -15,7 +15,7 @@ app.register_blueprint(home)
 app.register_blueprint(admin)
 app.register_blueprint(products)
 app.register_blueprint(auth)
-app.register_blueprint(cart)
+app.register_blueprint(cartProduct)
 
 admin = create_admin(app)
 admin.add_view(ProductView(Product, db.session))
