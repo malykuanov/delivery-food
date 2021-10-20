@@ -1,9 +1,9 @@
-from flask import Blueprint, flash, redirect, url_for, g, request, render_template, session, jsonify
+from flask import Blueprint, flash, redirect, url_for, g, request, render_template, session
 from flask_login import login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import login_manager, db
-from app.auth.models import Users, get_user, Cart, CartProduct
+from app.auth.models import Users, Cart, CartProduct
 from app.auth.forms import LoginForm, RegisterForm
 from app.products.models import ProductCategory
 
@@ -16,7 +16,7 @@ auth = Blueprint('auth',
 
 @login_manager.user_loader
 def load_user(user_id):
-    g.user = get_user(user_id)
+    g.user = Users.get_user(user_id)
     return g.user
 
 
