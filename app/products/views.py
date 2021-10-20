@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, abort
 
-from app.auth.models import get_price_and_count
+from app.auth.models import CartProduct
 from app.products.models import ProductCategory, Product
 
 products = Blueprint(
@@ -22,8 +22,8 @@ def category(product_category):
                            categories=ProductCategory.get_all_categories(),
                            products=products_for_category,
                            product_category=product_category,
-                           price=get_price_and_count()['price'],
-                           count=get_price_and_count()['count'])
+                           price=CartProduct.get_price_and_count()['price'],
+                           count=CartProduct.get_price_and_count()['count'])
 
 
 @products.route("/<product_category>/<product>", methods=['GET'])

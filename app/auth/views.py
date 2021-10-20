@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import login_manager, db
-from app.auth.models import Users, get_user, Cart, get_price_and_count
+from app.auth.models import Users, get_user, Cart, CartProduct
 from app.auth.forms import LoginForm, RegisterForm
 from app.products.models import ProductCategory
 
@@ -46,8 +46,8 @@ def login():
     return render_template("auth/login.html",
                            categories=ProductCategory.get_all_categories(),
                            form=form,
-                           price=get_price_and_count()['price'],
-                           count=get_price_and_count()['count'])
+                           price=CartProduct.get_price_and_count()['price'],
+                           count=CartProduct.get_price_and_count()['count'])
 
 
 @auth.route('/register', methods=["POST", "GET"])
@@ -79,8 +79,8 @@ def register():
     return render_template("auth/register.html",
                            categories=ProductCategory.get_all_categories(),
                            form=form,
-                           price=get_price_and_count()['price'],
-                           count=get_price_and_count()['count'])
+                           price=CartProduct.get_price_and_count()['price'],
+                           count=CartProduct.get_price_and_count()['count'])
 
 
 @auth.route('/logout')
