@@ -174,6 +174,7 @@ class CartView(sqla.ModelView):
     """Displaying the user's cart"""
 
     can_delete = False
+    column_display_pk = True
 
     def is_accessible(self):
         if not current_user.is_authenticated:
