@@ -14,13 +14,12 @@ products = Blueprint(
 
 @products.route("/<product_category>", methods=['GET'])
 def category(product_category):
-    categories = ProductCategory.query.all()
-    if product_category not in [category.slug for category in categories]:
+    if product_category not in [category.slug for category in ProductCategory.get_all_categories()]:
         abort(404)
     products = Product.query.all()
     products_for_category = [product for product in products if product.product_category.slug == product_category]
     return render_template('products/category.html',
-                           categories=categories,
+                           categories=ProductCategory.get_all_categories(),
                            products=products_for_category,
                            product_category=product_category,
                            price=get_price_and_count()['price'],
@@ -29,15 +28,14 @@ def category(product_category):
 
 @products.route("/<product_category>/<product>", methods=['GET'])
 def category_product(product_category, product):
-    categories = ProductCategory.query.all()
-    if product_category not in [category.slug for category in categories]:
+    if product_category not in [category.slug for category in ProductCategory.get_all_categories()]:
         abort(404)
     products = Product.query.filter(Product.product_category.has(slug=product_category)).all()
     if product not in [product.slug for product in products]:
         abort(404)
     product = Product.query.filter_by(slug=product).first()
     return render_template('products/product.html',
-                           categories=categories,
+                           categories=ProductCategory.get_all_categories(),
                            product_category=product_category,
                            product=product,
                            price=get_price_and_count()['price'],

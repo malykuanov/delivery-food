@@ -25,7 +25,6 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('home.index'))
 
-    categories = ProductCategory.query.order_by(ProductCategory.id).all()
     form = LoginForm()
 
     if request.method == 'POST':
@@ -45,7 +44,7 @@ def login():
             for error in form.errors.items():
                 flash(message=error, category="error")
     return render_template("auth/login.html",
-                           categories=categories,
+                           categories=ProductCategory.get_all_categories(),
                            form=form,
                            price=get_price_and_count()['price'],
                            count=get_price_and_count()['count'])
@@ -53,9 +52,8 @@ def login():
 
 @auth.route('/register', methods=["POST", "GET"])
 def register():
-    categories = ProductCategory.query.order_by(ProductCategory.id).all()
-
     form = RegisterForm()
+
     if request.method == "POST":
         if form.validate_on_submit():
             if form.email.data in [user.email for user in Users.query.all()]:
@@ -79,7 +77,7 @@ def register():
                 flash(message=error, category="error")
 
     return render_template("auth/register.html",
-                           categories=categories,
+                           categories=ProductCategory.get_all_categories(),
                            form=form,
                            price=get_price_and_count()['price'],
                            count=get_price_and_count()['count'])

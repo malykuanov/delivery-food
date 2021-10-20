@@ -17,9 +17,8 @@ home = Blueprint(
 
 @home.route("/")
 def index():
-    categories = ProductCategory.query.order_by(ProductCategory.id).all()
     return render_template('home/home.html',
-                           categories=categories,
+                           categories=ProductCategory.get_all_categories(),
                            price=get_price_and_count()['price'],
                            count=get_price_and_count()['count'])
 
