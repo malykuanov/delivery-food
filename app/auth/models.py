@@ -66,3 +66,7 @@ class CartProduct(db.Model):
             return dict(price=price, count=count)
         return dict(price=price, count=count)
 
+    @classmethod
+    def products_in_cart(cls):
+        user = Users.query.filter_by(email=current_user.email).first()
+        return [product for cart in user.cart.cart_products for product in cart.products]
