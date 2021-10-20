@@ -167,6 +167,17 @@ class UsersView(sqla.ModelView):
         return current_user.has_role('admin')
 
 
+class CartView(sqla.ModelView):
+    """Displaying the user's cart"""
+
+    can_delete = False
+
+    def is_accessible(self):
+        if not current_user.is_authenticated:
+            return False
+        return current_user.has_role('admin')
+
+
 class CartProductView(sqla.ModelView):
     """Displaying products in cart current user"""
 
