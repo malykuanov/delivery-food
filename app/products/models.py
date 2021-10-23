@@ -1,6 +1,6 @@
 from slugify import slugify
 
-from app import db
+from app import db, ma
 
 
 class Product(db.Model):
@@ -23,6 +23,11 @@ class Product(db.Model):
     def generate_slug(self):
         if self.name:
             self.slug = slugify(self.name)
+
+
+class ProductSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Product
 
 
 class ProductCategory(db.Model):
@@ -49,3 +54,8 @@ class ProductCategory(db.Model):
 
     def __str__(self):
         return f"{self.category}"
+
+
+class ProductCategorySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = ProductCategory
