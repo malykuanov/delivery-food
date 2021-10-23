@@ -15,6 +15,7 @@ class Config(object):
     PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=100)
     JSON_AS_ASCII = False
 
+
 class ProductionConfig(Config):
     DEBUG = False
 
