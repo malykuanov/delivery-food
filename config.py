@@ -13,7 +13,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PERMANENT_SESSION_LIFETIME = datetime.timedelta(days=100)
-
+    JSON_AS_ASCII = False
 
 class ProductionConfig(Config):
     DEBUG = False
