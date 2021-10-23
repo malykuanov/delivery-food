@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from flask_restx import Api, Resource, fields
+from flask_restx import Api, Resource, fields, reqparse
 
 from app import db
 from app.products.models import Product, ProductSchema, ProductCategory
@@ -19,6 +19,10 @@ productModel = api.model('Product', {
     'weight': fields.Integer(default=666),
     'price': fields.Integer(default=777),
     'category': fields.String(default='Пицца')
+})
+
+priceModel = api.model('Price', {
+    'price': fields.Integer
 })
 
 
@@ -55,7 +59,41 @@ class Products(Resource):
             query = Product.query.filter_by(name=name).one()
             product_schema = ProductSchema()
             result = product_schema.dump(query)
-        except Exception as ex:
-            return ex
+        except Exception:
+            return api.abort(404, "name or category required! OR product exist")
         else:
             return jsonify(result)
+
+
+@api.route('/product/<id>')
+class Products(Resource):
+    def get(self, id):
+        """Get product info"""
+
+        query = Product.query.get_or_404(id)
+        product_schema = ProductSchema()
+        result = product_schema.dump(query)
+        return jsonify(result)
+
+    @api.expect(priceModel)
+    def put(self, id):
+        """Change price product"""
+
+        try:
+            query = Product.query.get_or_404(id)
+            data = request.get_json()
+            query.price = data.get('price')
+            db.session.commit()
+        except Exception:
+            return api.abort(404)
+        else:
+            return "Product price updated"
+
+    def delete(self, id):
+        """Delete product"""
+
+        product = Product.query.get_or_404(id)
+        db.session.delete(product)
+        db.session.commit()
+
+        return "Product removed"
