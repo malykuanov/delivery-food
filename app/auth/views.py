@@ -1,10 +1,11 @@
-from flask import Blueprint, flash, redirect, url_for, g, request, render_template, session
-from flask_login import login_user, current_user, logout_user
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import (Blueprint, flash, g, redirect, render_template, request,
+                   session, url_for)
+from flask_login import current_user, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import login_manager, db
-from app.auth.models import Users, Cart, CartProduct
+from app import db, login_manager
 from app.auth.forms import LoginForm, RegisterForm
+from app.auth.models import Cart, CartProduct, Users
 from app.products.models import ProductCategory
 
 auth = Blueprint('auth',

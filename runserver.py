@@ -1,15 +1,14 @@
 from app import create_app, db
+from app.admin.views import (CartProductView, CartView, CategoryView,
+                             ProductView, UsersView, admin, create_admin)
 from app.api.views import api_bp
+from app.auth.models import Cart, CartProduct, Users
 from app.auth.views import auth
 from app.home.views import home
-from app.admin.views import admin, create_admin, CategoryView, ProductView, UsersView, CartProductView, CartView
 from app.products.models import Product, ProductCategory
-from app.auth.models import Users, Cart, CartProduct
 from app.products.views import products
 from app.users.views import cartProduct
-
 from config import DevelopmentConfig
-
 
 app = create_app(DevelopmentConfig)
 app.register_blueprint(home)

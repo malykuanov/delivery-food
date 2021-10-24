@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
-from flask_restx import Api, Resource, fields, reqparse
+from flask_restx import Api, Resource, fields
 
 from app import db
-from app.products.models import Product, ProductSchema, ProductCategory
+from app.products.models import Product, ProductCategory, ProductSchema
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 api = Api(api_bp,

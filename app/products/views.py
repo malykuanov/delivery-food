@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, abort, render_template
 
 from app.auth.models import CartProduct
-from app.products.models import ProductCategory, Product
+from app.products.models import Product, ProductCategory
 
 products = Blueprint(
     'products',

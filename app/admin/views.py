@@ -1,13 +1,12 @@
 import os
 
 from flask import Blueprint, current_app, url_for
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib import sqla
-from flask_admin import AdminIndexView
 from flask_login import current_user
-from flask_wtf.file import FileField, FileAllowed, FileSize
-from werkzeug.utils import secure_filename, redirect
+from flask_wtf.file import FileAllowed, FileField, FileSize
 from slugify import slugify
+from werkzeug.utils import redirect, secure_filename
 from wtforms import SelectField
 
 admin = Blueprint('admin_bp', __name__, template_folder='templates', static_folder='static')

@@ -3,7 +3,6 @@ from flask import Blueprint, render_template
 from app.auth.models import CartProduct
 from app.products.models import ProductCategory
 
-
 home = Blueprint(
     'home',
     __name__,
