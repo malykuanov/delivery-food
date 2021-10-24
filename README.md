@@ -1,5 +1,17 @@
 # Flask application: "Delivery food"
 
+The project was implemented using Flask:
+
+* Flask
+* Flask-Admin
+* Flask-Bootstrap
+* Flask-Login
+* Flask-marshmallow
+* Flask-Migrate
+* Flask-restx
+* Flask-SQLAlchemy
+* Flask-WTF
+
 |   Directory   | Description                                                                                                                                                                                              |
 |:-------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |   app/admin/  | Admin panel for managing models, access only for users with the admin role                                                                                                                               |
