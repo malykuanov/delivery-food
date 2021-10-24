@@ -39,19 +39,19 @@ runserver            Application Launch File (create application, register bluep
 
 ##### Selected category "Pizza"
 
-![category pizza](https://i.ibb.co/8XmYMkv/pizza.png)
+![category pizza](https://i.ibb.co/N7FTxRD/pizza.png)
 
 ##### Product details
 
-![product details](https://i.ibb.co/LpqPfTN/curpizza.png)
+![product details](https://i.ibb.co/w6bL1nc/curpizza.png)
 
 ##### Admin panel
 
-![admin panel](https://i.ibb.co/d2yXWtB/admin-panel.png)
+![admin panel](https://i.ibb.co/r6Jq73k/admin-panel.png)
 
 ##### API UI
 
-![api](https://i.ibb.co/6gHd9ZX/api.png)
+![api](https://i.ibb.co/jgyp05J/api.png)
 
 ### Contacts for communication
 
