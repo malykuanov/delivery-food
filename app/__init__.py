@@ -13,6 +13,7 @@ bootstrap = Bootstrap()
 login_manager = LoginManager()
 ma = Marshmallow()
 
+
 def create_app(config_class=DevelopmentConfig):
     app = Flask(__name__)
     app.config.from_object(config_class)

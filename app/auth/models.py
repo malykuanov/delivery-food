@@ -43,15 +43,21 @@ class Cart(db.Model):
 
 
 assoc_cart_products = db.Table("assoc_cart_products",
-                               db.Column("cart_product_id", db.Integer, db.ForeignKey("cart_product.id")),
-                               db.Column("product_id", db.Integer, db.ForeignKey("product.id")))
+                               db.Column("cart_product_id",
+                                         db.Integer,
+                                         db.ForeignKey("cart_product.id")),
+                               db.Column("product_id",
+                                         db.Integer,
+                                         db.ForeignKey("product.id")))
 
 
 class CartProduct(db.Model):
     __tablename__ = 'cart_product'
     id = db.Column(db.Integer, primary_key=True)
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
-    products = db.relationship("Product", backref="cart_product", secondary=assoc_cart_products)
+    products = db.relationship("Product",
+                               backref="cart_product",
+                               secondary=assoc_cart_products)
 
     @classmethod
     def get_price_and_count(cls):
@@ -69,4 +75,5 @@ class CartProduct(db.Model):
     @classmethod
     def products_in_cart(cls):
         user = Users.query.filter_by(email=current_user.email).first()
-        return [product for cart in user.cart.cart_products for product in cart.products]
+        return [product for cart in user.cart.cart_products
+                for product in cart.products]

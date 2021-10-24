@@ -18,4 +18,3 @@ def index():
                            categories=ProductCategory.get_all_categories(),
                            price=CartProduct.get_price_and_count()['price'],
                            count=CartProduct.get_price_and_count()['count'])
-

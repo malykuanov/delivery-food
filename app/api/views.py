@@ -49,7 +49,8 @@ class Products(Resource):
             price = data.get('price')
             category = data.get('category')
 
-            category_id = ProductCategory.query.filter_by(category=category).one().id
+            category_id = ProductCategory.query.filter_by(
+                category=category).one().id
             new_product = Product(name=name, description=description,
                                   composition=composition, weight=weight,
                                   price=price, category_id=category_id)
@@ -60,7 +61,7 @@ class Products(Resource):
             product_schema = ProductSchema()
             result = product_schema.dump(query)
         except Exception:
-            return api.abort(404, "name or category required! OR product exist")
+            return api.abort(404, "name or category required OR product exist")
         else:
             return jsonify(result)
 

@@ -58,8 +58,11 @@ def register():
     if request.method == "POST":
         if form.validate_on_submit():
             if form.email.data in [user.email for user in Users.query.all()]:
-                flash("Пользователь с таким email зарегистрирован", category="error")
-                return render_template("auth/register.html", title="Register", form=form)
+                flash("Пользователь с таким email зарегистрирован",
+                      category="error")
+                return render_template("auth/register.html",
+                                       title="Register",
+                                       form=form)
             try:
                 hash_psw = generate_password_hash(form.psw1.data)
                 u = Users(email=form.email.data, psw=hash_psw,

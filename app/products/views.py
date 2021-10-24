@@ -14,12 +14,14 @@ products = Blueprint(
 
 @products.route("/<product_category>", methods=['GET'])
 def category(product_category):
-    if product_category not in [category.slug for category in ProductCategory.get_all_categories()]:
+    categories = ProductCategory.get_all_categories()
+    if product_category not in [category.slug for category in categories]:
         abort(404)
     products = Product.query.all()
-    products_for_category = [product for product in products if product.product_category.slug == product_category]
+    products_for_category = [prod for prod in products
+                             if prod.product_category.slug == product_category]
     return render_template('products/category.html',
-                           categories=ProductCategory.get_all_categories(),
+                           categories=categories,
                            products=products_for_category,
                            product_category=product_category,
                            price=CartProduct.get_price_and_count()['price'],
@@ -28,14 +30,16 @@ def category(product_category):
 
 @products.route("/<product_category>/<product>", methods=['GET'])
 def category_product(product_category, product):
-    if product_category not in [category.slug for category in ProductCategory.get_all_categories()]:
+    categories = ProductCategory.get_all_categories()
+    if product_category not in [category.slug for category in categories]:
         abort(404)
-    products = Product.query.filter(Product.product_category.has(slug=product_category)).all()
+    products = Product.query.filter(
+        Product.product_category.has(slug=product_category)).all()
     if product not in [product.slug for product in products]:
         abort(404)
     product = Product.query.filter_by(slug=product).first()
     return render_template('products/product.html',
-                           categories=ProductCategory.get_all_categories(),
+                           categories=categories,
                            product_category=product_category,
                            product=product,
                            price=CartProduct.get_price_and_count()['price'],

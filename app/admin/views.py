@@ -9,7 +9,10 @@ from slugify import slugify
 from werkzeug.utils import redirect, secure_filename
 from wtforms import SelectField
 
-admin = Blueprint('admin_bp', __name__, template_folder='templates', static_folder='static')
+admin = Blueprint('admin_bp',
+                  __name__,
+                  template_folder='templates',
+                  static_folder='static')
 
 
 class HomeAdminView(AdminIndexView):
@@ -71,8 +74,10 @@ class CategoryView(sqla.ModelView):
         storage_file = form.category_photo.data
         if storage_file:
             filename = secure_filename(storage_file.filename)
-            filename = slugify(form.category.data) + '_category_photo.' + filename.rsplit('.', 1)[1]
-            path = current_app.root_path + '/static/images/product_category/' + filename
+            filename = (slugify(form.category.data)
+                        + '_category_photo.' + filename.rsplit('.', 1)[1])
+            path = (current_app.root_path
+                    + '/static/images/product_category/' + filename)
             os.remove(path) if os.path.exists(path) else None
             storage_file.save(path)
             return filename
@@ -81,7 +86,8 @@ class CategoryView(sqla.ModelView):
     def _on_model_change(self, form, model, is_created):
         model.photo_url = self.set_category_image(form, model)
         model.generate_slug()
-        return super(CategoryView, self).on_model_change(form, model, is_created)
+        return super(CategoryView, self).on_model_change(form, model,
+                                                         is_created)
 
 
 class ProductView(sqla.ModelView):
@@ -121,8 +127,11 @@ class ProductView(sqla.ModelView):
         storage_file = form.product_photo.data
         if storage_file:
             filename = secure_filename(storage_file.filename)
-            filename = slugify(form.name.data) + '_photo.' + filename.rsplit('.', 1)[1]
-            path = current_app.root_path + f'/static/images/products/{slugify(str(form.product_category.data))}/'
+            filename = (slugify(form.name.data)
+                        + '_photo.' + filename.rsplit('.', 1)[1])
+            path = (current_app.root_path
+                    + '/static/images/products/'
+                    + f'{slugify(str(form.product_category.data))}/')
             if not os.path.exists(path):
                 os.makedirs(path)
             path += filename
@@ -134,7 +143,8 @@ class ProductView(sqla.ModelView):
 
     def _on_model_change(self, form, model, is_created):
         model.photo_url = self.set_product_image(form, model)
-        return super(ProductView, self).on_model_change(form, model, is_created)
+        return super(ProductView, self).on_model_change(form, model,
+                                                        is_created)
 
 
 class UsersView(sqla.ModelView):
@@ -195,6 +205,9 @@ class CartProductView(sqla.ModelView):
 
 
 def create_admin(app):
-    admin = Admin(app, 'FlaskApp', url='/', index_view=HomeAdminView(name='Delivery_food'),
+    admin = Admin(app,
+                  'FlaskApp',
+                  url='/',
+                  index_view=HomeAdminView(name='Delivery_food'),
                   template_mode='bootstrap3')
     return admin
