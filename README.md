@@ -33,6 +33,26 @@ runserver            Application Launch File (create application, register bluep
                      create Admin Panel and register model`s views in Admin Panel)
 ```
 
+##### Home page
+
+![home page](https://i.ibb.co/jfhKzyD/home.png)
+
+##### Selected category "Pizza"
+
+![category pizza](https://i.ibb.co/8XmYMkv/pizza.png)
+
+##### Product details
+
+![product details](https://i.ibb.co/LpqPfTN/curpizza.png)
+
+##### Admin panel
+
+![admin panel](https://i.ibb.co/d2yXWtB/admin-panel.png)
+
+##### API UI
+
+![api](https://i.ibb.co/6gHd9ZX/api.png)
+
 ### Contacts for communication
 
 * 8-916-191-51-85
