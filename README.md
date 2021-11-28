@@ -59,4 +59,4 @@ runserver            Application Launch File (create application, register bluep
 
 * 8-916-191-51-85
 * malykuanov@mail.ru
-* @white_bunny_hop (TG)
+* @python_anywhere (TG)
